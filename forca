@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <locale.h>
+int main() {
+	setlocale(LC_ALL, "portuguese");
+    char bd[15][30] = {"elefante","caderno","bola","corrida","sapato","paralelepipedo","cavalo","skate","whatsapp","controle","computador","biscoito","vitamina","almofada","janela"};
+    int opc, sair = 1, i;
+    
+    void nJogo(char bco_d[15][30]);
+    
+    do{
+        printf("[1] Novo jogo\n[2] Banco de dados\n[3] Sobre\n[4] Ajuda\n[5] Sair\n\n");
+        scanf("%d", &opc);
+        switch (opc) {
+            case 1:
+                nJogo(bd);
+                break;
+            case 2:
+                for (i = 0; i < 15 ; i++)
+                    printf("\n%d-%s\n\n", i, bd[i]);
+                    break;
+            case 3:
+                printf("Sobre:\n");
+                printf("\nDesenvolvido by: Breno Ramos Souza\n");
+                printf("\nInstagram: @brenorammos\n");
+                printf("Programa feito para obtenção de nota no primeiro semstre de Ciência da computação\nda disciplina. LP1\n\n");
+                break;
+            case 4:
+                printf("Ajuda\n");
+                printf("\nO jogo consiste em tentar descobrir qual é a palavra oculta chutando uma letra de cada vez. A cada vez que inicia um novo jogo aparece uma palavra nova de um tema diferente.\n\n");
+                break;
+            case 5:
+                sair = 0;
+        }
+    }while (sair);
+    return 0;
+}
+
+void nJogo(char bco_d[15][30]){
+    int sorteio, i, tentativas = 0, aux = 0;
+    char space[30]= "", letra;
+    srand(time(NULL));
+    sorteio = rand()%15;
+    for (i = 0; i < strlen(bco_d[sorteio]); i++) {
+    }
+       printf("\n++++++++++!!!JOGO DA FORCA!!!++++++++++\n");
+    do{
+        for (i = 0; i < strlen(bco_d[sorteio]); i++) {
+            printf("%c", space[i]);
+        }
+        printf("\nInforme apenas uma letra\n");
+        scanf("%s", &letra);
+        aux = 0;
+        for (i = 0; i < strlen(bco_d[sorteio]); i++) {
+            if(letra == bco_d[sorteio][i]){
+                space[i] = letra;
+                aux = 1;
+            }
+        }
+        if (aux == 0) {
+            tentativas++;
+        }
+    }while (strcmp(bco_d[sorteio], space));
+    printf("!!!!!!Parabéns voce acertou!!!!!!");
+    printf("\nA palavra e: %s\n", bco_d[sorteio]);
+    printf("Quantidade de erros: %d\n", tentativas);
+}
